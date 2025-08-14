@@ -14,3 +14,9 @@ Once this builds, it should pop up when `docker images` is run. The next step is
 The `-it` flag allows for the container to be interacted with and not exit immediately after it is ran. The `-p` flag is for port mapping, since a container is in its own world. The container has to have access to the outside, and without the `-p` flag, there would be no way for it to do so. For example, if we are wanting to expose port 2220 from the container and have it map to our computer port 2220, we use `-p 2220:2220`. 
 If for any reason, you do not want your container to be using port 2220, change the `EXPOSE` option in the `Dockerfile`.  
 
+
+Once the `docker run` command is run, the user cannot interact with that terminal. If the user wants to get out of the container, they will use `Ctrl+p then Ctrl+q`.
+
+
+## Using SSH for Getting Inside Container
+In another terminal, use `ssh root@localhost -p <PORT_ON_HOST>`. The `PORT_ON_HOST` refers to whichever port the container port is being mapped to. Think of a tube connecting from the selected port in the container to your selected port on your host. You want to select the port which you have access to - the host port. In the example of mapping port 2220 from the container to 2220 on the host, the port with the `-p` is `2220`. If the container port were to be 2220, but the host port were to be 8080, then the command would be `ssh root@localhost -p 8000'. This would also mean that the command for `docker run` would change to `docker run -it -p 8080:2220 <IMAGE_ID>`.  
