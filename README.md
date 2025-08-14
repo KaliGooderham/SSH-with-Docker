@@ -15,12 +15,17 @@ The `-it` flag allows for the container to be interacted with and not exit immed
 If for any reason, you do not want your container to be using port 2220, change the `EXPOSE` option in the `Dockerfile`.  
 
 
+Example with host port and container port as 2220, and image ID tagged as 'openssh': `docker run -it -p 2220:2220 openssh`.
+
+
 Once the `docker run` command is run, the user cannot interact with that terminal. If the user wants to get out of the container, they will use `Ctrl+p then Ctrl+q`.
 
 
 ## Using SSH for Getting Inside Container
 In another terminal, use `ssh root@localhost -p <PORT_ON_HOST>`. The `PORT_ON_HOST` refers to whichever port the container port is being mapped to. Think of a tube connecting from the selected port in the container to your selected port on your host. You want to select the port which you have access to - the host port. In the example of mapping port 2220 from the container to 2220 on the host, the port with the `-p` is `2220`. If the container port were to be 2220, but the host port were to be 8080, then the command would be `ssh root@localhost -p 8000'. This would also mean that the command for `docker run` would change to `docker run -it -p 8080:2220 <IMAGE_ID>`.  
 
+
+Example: `ssh root:password_here -p 2220`
 
 ## Additions to the Dockerfile
 If any additions need to be made to the setup of the Dockerfile to make it a different server, adding RUN commands are likely going to be the way to go.
